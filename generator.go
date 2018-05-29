@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
-	"github.com/iunsuccessful/generator/template"
 	"os"
 	"fmt"
+	"log"
+	"github.com/iunsuccessful/generator/template"
 )
 
 /**
@@ -30,6 +30,7 @@ func main() {
 		template.Render(os.Args[1], os.Args[2])
 	}
 	log.Println("success.")
+
 }
 
 func usage() {

@@ -13,9 +13,9 @@ type TableInfo struct {
 
 func (t *TableInfo) Name() string {
 	if len(t.BeanName) > 0 {
-		return t.BeanName
+		return rules.UpperCamelCase(t.BeanName)
 	}
-	return t.TableName
+	return rules.UpperCamelCase(t.TableName)
 }
 
 type ColumnInfo struct {

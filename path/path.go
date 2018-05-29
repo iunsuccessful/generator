@@ -14,19 +14,18 @@ import (
  * 获取文件执行路径
  */
 func getExecPath() string {
-	ex, err := os.Executable()
+	pwd, err := os.Getwd()
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
-	exPath := filepath.Dir(ex)
-	return exPath;
+	return pwd
 }
 
 /**
  * 应用程序路径
  */
 func GetBasePath() string {
-	return getExecPath();
+	return getExecPath()
 }
 
 func GetTemplatePath() string  {
@@ -36,12 +35,12 @@ func GetTemplatePath() string  {
 func GetTargetPath() string  {
 	return GetBasePath() + "\\target"
 }
- 
+
 func GetBinFilePath() string {
 	//return "E:\\Anonymous\\Documents\\golang\\Generator\\src\\github.com\\iunsuccessful\\generator\\test";
 	file, _ := exec.LookPath(os.Args[0])
 	path, _ := filepath.Abs(file)
-	return filepath.Base(path);
+	return filepath.Dir(path)
 }
 
 /**
