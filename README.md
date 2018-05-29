@@ -56,6 +56,8 @@ jdbc.password= demo
 | DataType | string | java 中的类型 |
 | ColumnComment | string | 列有注释 |
 | ColumnKey | string | 可判断是不是主键 “PRI” 为主键 |
+| UpperCamelName | string | 列名大驼峰命名 |
+| LowerCamelName | string | 列名小驼峰命名 |
 
 #### 可用方法
 
