@@ -39,7 +39,7 @@ jdbc.password= demo
 
 模板使用 golang [模板语法](https://golang.org/pkg/text/template/) 放到 template 目录下，软件会根据 template 下面的目录生成对应目录到 target 下面
 
-可用变量
+#### 可用变量
 
 | 字段 | 类型 | 释意 |
 |:--|:--|:--|
@@ -56,3 +56,9 @@ jdbc.password= demo
 | DataType | string | java 中的类型 |
 | ColumnComment | string | 列有注释 |
 | ColumnKey | string | 可判断是不是主键 “PRI” 为主键 |
+
+#### 可用方法
+
+| 方法名 | 参数 | 释意 |
+|:--|:--|:--|
+| lowerCamelCase| string | 字符转换为小驼峰命名 |
