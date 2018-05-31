@@ -34,9 +34,11 @@ func main() {
 }
 
 func usage() {
+	fmt.Println()
 	fmt.Printf("Usage: %s <table name> [alias]\n", "generator");
 	fmt.Println()
 	fmt.Printf("\t -h \t\thelp\n");
+	fmt.Println()
 	os.Exit(0)
 }
 

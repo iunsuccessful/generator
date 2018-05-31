@@ -3,6 +3,7 @@ package ddl
 import (
 	"fmt"
 	"container/list"
+	"log"
 )
 
 /**
@@ -17,6 +18,11 @@ func GetTableInfo(tableName string) *TableInfo {
 	sql := fmt.Sprintf("select table_name, table_comment from information_schema.tables where table_schema = (select database()) and table_name = '%s'", tableName)
 	tableInfo := &TableInfo{}
 	selectTableInfo(tableInfo, sql)
+
+	// 判断表存不存在
+	if (len(tableInfo.BeanName) == 0) {
+		log.Fatalln("Con't find this table.")
+	}
 
 	list := GetColumnInfo(tableName)
 
