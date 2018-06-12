@@ -20,7 +20,7 @@ func GetTableInfo(tableName string) *TableInfo {
 	selectTableInfo(tableInfo, sql)
 
 	// 判断表存不存在
-	if (len(tableInfo.BeanName) == 0) {
+	if (len(tableInfo.TableName) == 0) {
 		log.Fatalln("Con't find this table.")
 	}
 

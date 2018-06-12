@@ -53,6 +53,7 @@ jdbc.password= demo
 |:--|:--|:--|
 | ColumnName| string | 列名 |
 | JDBCType | string | 列在数据库中的类型 |
+| StdJDBCType | string | VARCHAR, INTEGER |
 | DataType | string | java 中的类型 |
 | ColumnComment | string | 列有注释 |
 | ColumnKey | string | 可判断是不是主键 “PRI” 为主键 |

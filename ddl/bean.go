@@ -36,3 +36,7 @@ func (c *ColumnInfo) LowerCamelName() string {
 func (c *ColumnInfo) DataType() string {
 	return rules.TypeCase(c.JDBCType)
 }
+
+func (c *ColumnInfo) StdJDBCType() string {
+	return rules.JdbcTypeCase(c.JDBCType)
+}
