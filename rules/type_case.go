@@ -14,7 +14,7 @@ func TypeCase(s string) string {
 
 }
 
-func JdbcTypeCase(s string) string {
+func JDBCTypeCase(s string) string {
 
 	switch strings.ToLower(s) {
 		case "date", "time", "datetime", "timestamp": return "TIMESTAMP"

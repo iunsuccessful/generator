@@ -38,5 +38,5 @@ func (c *ColumnInfo) DataType() string {
 }
 
 func (c *ColumnInfo) StdJDBCType() string {
-	return rules.JdbcTypeCase(c.JDBCType)
+	return rules.JDBCTypeCase(c.JDBCType)
 }
