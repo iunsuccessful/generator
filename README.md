@@ -64,4 +64,6 @@ jdbc.password= demo
 
 | 方法名 | 参数 | 释意 |
 |:--|:--|:--|
-| lowerCamelCase| string | 字符转换为小驼峰命名 |
+| lowerCamelCase | string | 字符转换为小驼峰命名 |
+| upperCamelCase | string | 字符转换为大驼峰命名 |
+| lowerHyphenCase | string | 字符转换为中划线命名 |
