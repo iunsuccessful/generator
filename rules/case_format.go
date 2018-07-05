@@ -14,6 +14,11 @@ func LowerCamelCase(s string) string {
 	return camelCase(s, false)
 }
 
+// TODO 转换中线线，URL 中用
+func LowerHyphenCase(s string) string {
+	return s;
+}
+
 func camelCase(s string, upper bool) string {
 	s = strings.TrimSpace(s)
 	if len(s) == 0 {

@@ -4,7 +4,6 @@ import (
 	"github.com/iunsuccessful/generator/path"
 	"fmt"
 	"github.com/iunsuccessful/generator/ddl"
-	"os"
 	"text/template"
 	"bytes"
 	"github.com/iunsuccessful/generator/rules"
@@ -24,7 +23,8 @@ func Render(tableName, alias string)  {
 	tableInfo.BeanName = rules.UpperCamelCase(alias)
 
 	// 先删除 target 目录
-	os.RemoveAll(path.GetTargetPath())
+	// TODO 这里要加个判断，不是每次都需要删除，根据需求
+	// os.RemoveAll(path.GetTargetPath())
 	// TODO 这里可用 t.ExecuteTemplate(w, tmpl, data) 改写
 	for _, filePath := range path.GetAllFiles() {
 
