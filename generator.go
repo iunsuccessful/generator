@@ -2,9 +2,9 @@ package main
 
 import (
 	"os"
-	"fmt"
 	"log"
 	"github.com/iunsuccessful/generator/template"
+	"github.com/iunsuccessful/generator/config"
 )
 
 /**
@@ -17,28 +17,13 @@ import (
  */
 func main() {
 
-	if len(os.Args) < 2 || os.Args[1] == "-h" {
-		// print help
-		usage()
-	}
+	args := config.New(os.Args)
 
 	log.Println("Begin generator...")
-
-	if len(os.Args) == 2 {
-		template.Render(os.Args[1], "")
-	} else {
-		template.Render(os.Args[1], os.Args[2])
-	}
+	template.Render(args)
 	log.Println("success.")
 
 }
 
-func usage() {
-	fmt.Println()
-	fmt.Printf("Usage: %s <table name> [alias]\n", "generator");
-	fmt.Println()
-	fmt.Printf("\t -h \t\thelp\n");
-	fmt.Println()
-	os.Exit(0)
-}
+
 

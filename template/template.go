@@ -9,6 +9,8 @@ import (
 	"github.com/iunsuccessful/generator/rules"
 	"path/filepath"
 	"github.com/iunsuccessful/generator/template/funcs"
+	"github.com/iunsuccessful/generator/config"
+	"os"
 )
 
 /*
@@ -16,15 +18,17 @@ import (
  * 2. 填充文件内容
  * 3. 写入 target 对应目录
  */
-func Render(tableName, alias string)  {
+func Render(argument *config.Argument)  {
 
 	// 加载表格信息
-	tableInfo := ddl.GetTableInfo(tableName)
-	tableInfo.BeanName = rules.UpperCamelCase(alias)
+	tableInfo := ddl.GetTableInfo(argument.TableName)
+	tableInfo.BeanName = rules.UpperCamelCase(argument.BeanName)
 
 	// 先删除 target 目录
-	// TODO 这里要加个判断，不是每次都需要删除，根据需求
-	// os.RemoveAll(path.GetTargetPath())
+	// 这里要加个判断，不是每次都需要删除，根据需求
+	if argument.DeleteFolder {
+		os.RemoveAll(path.GetTargetPath())
+	}
 	// TODO 这里可用 t.ExecuteTemplate(w, tmpl, data) 改写
 	for _, filePath := range path.GetAllFiles() {
 
