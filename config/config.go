@@ -5,11 +5,12 @@ import (
 	"log"
 	"github.com/iunsuccessful/generator/path"
 	"strings"
+    "path/filepath"
 )
 
 func GetFileConfig() config {
 	path := path.GetBasePath()
-	p := properties.MustLoadFile(path + "\\config.properties", properties.UTF8)
+	p := properties.MustLoadFile(filepath.Join(path, "config.properties"), properties.UTF8)
 	var cfg config
 	if err := p.Decode(&cfg); err != nil {
 		log.Fatal(err)

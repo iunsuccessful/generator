@@ -4,6 +4,7 @@ import (
 	"github.com/iunsuccessful/generator/path"
 	"fmt"
 	"github.com/iunsuccessful/generator/ddl"
+	"log"
 	"text/template"
 	"bytes"
 	"github.com/iunsuccessful/generator/rules"
@@ -29,6 +30,10 @@ func Render(argument *config.Argument)  {
 	if argument.DeleteFolder {
 		os.RemoveAll(path.GetTargetPath())
 	}
+
+	// 打印生成路径
+	log.Println("path: ", path.GetTargetPath())
+
 	// TODO 这里可用 t.ExecuteTemplate(w, tmpl, data) 改写
 	for _, filePath := range path.GetAllFiles() {
 

@@ -25,15 +25,16 @@ func getExecPath() string {
  * 应用程序路径
  */
 func GetBasePath() string {
-	return getExecPath()
+	// return getExecPath()
+    return GetBinFilePath()
 }
 
 func GetTemplatePath() string  {
-	return GetBasePath() + "\\template"
+	return filepath.Join(GetBasePath(), "template")
 }
 
 func GetTargetPath() string  {
-	return GetBasePath() + "\\target"
+	return filepath.Join(GetBasePath(), "target")
 }
 
 func GetBinFilePath() string {
@@ -47,7 +48,7 @@ func GetBinFilePath() string {
  * 递归获取目录中所有文件路径
  */
 func GetAllFiles() []string {
-	return getFiles(GetBasePath() + "\\template")
+	return getFiles(filepath.Join(GetBasePath(), "template"))
 }
 
 /**
