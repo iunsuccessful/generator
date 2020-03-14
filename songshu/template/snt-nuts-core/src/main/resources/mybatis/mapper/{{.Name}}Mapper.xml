@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.songshu.snt.nuts.core.dao.{{.Name}}DAO">
+    <resultMap id="BaseResultMap" type="com.songshu.snt.nuts.core.entity.{{.Name}}DO">
+        {{- range .Columns -}}
+        {{if eq .ColumnKey "PRI"}}
+        <id column="{{.ColumnName}}" property="{{.LowerCamelName}}" jdbcType="{{.StdJDBCType}}" />
+        {{- else -}}
+        <result column="{{.ColumnName}}" property="{{.LowerCamelName}}" jdbcType="{{.StdJDBCType}}" />
+        {{end}}
+        {{- end -}}
+    </resultMap>
+  
+    <!-- 基本列 -->
+    <sql id="Base_Column_List">
+        {{range $i,$x := .Columns -}}
+            {{if $i}}, {{end}}{{$x.ColumnName}}
+        {{- end}}
+    </sql>
+  
+    <!-- 单个插入 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.songshu.snt.nuts.core.entity.{{.Name}}DO">
+        insert into {{.TableName}} (
+            {{- range $i,$x := .Columns -}}
+            {{if $i}}, {{end}}{{$x.ColumnName}}
+            {{- end -}}
+         )
+        values (
+          {{- range $i,$x := .Columns -}}
+            {{- if $i}}, {{end -}}
+            {{- if eq $x.LowerCamelName "gmtCreate" -}}
+            now()
+            {{- else if eq $x.LowerCamelName "gmtModified" -}}
+            now()
+            {{- else if eq $x.LowerCamelName "rowVersion" -}}
+            0
+            {{- else if eq $x.LowerCamelName "rowStatus" -}}
+            0
+            {{- else -}}
+            #{ {{- $x.LowerCamelName -}} }
+            {{- end -}}
+            {{- end -}}
+        )
+    </insert>
+  
+    <!-- 单个更新 -->
+    <update id="update" parameterType="com.songshu.snt.nuts.core.entity.{{.Name}}DO">
+        update {{.TableName}}
+        <set>
+            GMT_MODIFIED = now(),
+            ROW_VERSION = ROW_VERSION + 1,
+            {{- range .Columns -}}
+            {{- if  or (eq .ColumnKey "PRI") (eq .LowerCamelName "rowVersion") | not -}}
+            <if test="{{.LowerCamelName}} != null" >
+               {{.ColumnName}} = #{ {{- .LowerCamelName -}} },
+            </if>
+            {{- end}}
+            {{end}}
+        </set>
+        where ID = #{id}
+        and ROW_STATUS = 0
+        and ROW_VERSION = #{rowVersion}
+    </update>
+  
+    <!-- 删除 -->
+    <update id="delete" parameterType="java.lang.Long" >
+        update {{.TableName}} set ROW_STATUS = -1  where ID = #{id}
+    </update>
+  
+    <!-- 查询列表 -->
+    <select id="query" resultMap="BaseResultMap" parameterType="com.songshu.snt.nuts.client.query.{{.Name}}Query">
+        select
+        <include refid="Base_Column_List" />
+        from {{.TableName}}
+        where ROW_STATUS = 0
+        {{- range .Columns -}}
+        {{- if  or (eq .ColumnKey "PRI") (eq .LowerCamelName "rowVersion") | not -}}
+        <if test="{{.LowerCamelName}} != null" >
+           and {{.ColumnName}} = #{ {{- .LowerCamelName -}} }
+        </if>
+        {{- end}}
+        {{end}}
+        <if test="pageSize != null and offset != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 查询列表条数 -->
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="com.songshu.snt.nuts.client.query.{{.Name}}Query">
+        select
+        count(1)
+        from {{.TableName}}
+        where
+        ROW_STATUS = 0
+        {{- range .Columns -}}
+        {{- if  or (eq .ColumnKey "PRI") (eq .LowerCamelName "rowVersion") | not -}}
+        <if test="{{.LowerCamelName}} != null" >
+           and {{.ColumnName}} = #{ {{- .LowerCamelName -}} }
+        </if>
+        {{- end}}
+        {{end}}
+    </select>
+  
+    <!-- 单个查询 -->
+    <select id="queryById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from {{.TableName}}
+        where ROW_STATUS = 0 and id = #{id}
+    </select>
+</mapper>
