@@ -1,11 +1,11 @@
 package config
 
 import (
+	"github.com/iunsuccessful/generator/path"
 	"github.com/magiconair/properties"
 	"log"
-	"github.com/iunsuccessful/generator/path"
+	"path/filepath"
 	"strings"
-    "path/filepath"
 )
 
 func GetFileConfig() config {
@@ -20,12 +20,12 @@ func GetFileConfig() config {
 	// jdbc.url = tcp(test.mysql.rds.aliyuncs.com)/demo
 	s := strings.TrimPrefix(cfg.Url, "jdbc:mysql://")
 	lastIndex := strings.LastIndex(s, "/")
-	cfg.Url = "tcp(" + s[0: lastIndex] + ")" + s[lastIndex:]
-	return cfg;
+	cfg.Url = "tcp(" + s[0:lastIndex] + ")" + s[lastIndex:]
+	return cfg
 }
 
 type config struct {
-	Url        string     `properties:"jdbc.url"`
-	Username   string     `properties:"jdbc.username"`
-	Password   string     `properties:"jdbc.password"`
+	Url      string `properties:"jdbc.url"`
+	Username string `properties:"jdbc.username"`
+	Password string `properties:"jdbc.password"`
 }

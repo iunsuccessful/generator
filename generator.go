@@ -1,10 +1,11 @@
 package main
 
 import (
-	"os"
-	"log"
-	"github.com/iunsuccessful/generator/template"
 	"github.com/iunsuccessful/generator/config"
+	"github.com/iunsuccessful/generator/path"
+	"github.com/iunsuccessful/generator/template"
+	"log"
+	"os"
 )
 
 /**
@@ -16,14 +17,11 @@ import (
  *
  */
 func main() {
-
 	args := config.New(os.Args)
-
-	log.Println("Begin generator...")
+	log.Println("bin file path: ", path.GetBinFilePath())
+	log.Println("exec file path: ", path.GetExecPath())
+	log.Println("db path: ", config.GetFileConfig().Url)
+	log.Println("begin generator...")
 	template.Render(args)
 	log.Println("success.")
-
 }
-
-
-

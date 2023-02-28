@@ -1,17 +1,17 @@
 package template
 
 import (
-	"github.com/iunsuccessful/generator/path"
-	"fmt"
-	"github.com/iunsuccessful/generator/ddl"
-	"log"
-	"text/template"
 	"bytes"
-	"github.com/iunsuccessful/generator/rules"
-	"path/filepath"
-	"github.com/iunsuccessful/generator/template/funcs"
+	"fmt"
 	"github.com/iunsuccessful/generator/config"
+	"github.com/iunsuccessful/generator/ddl"
+	"github.com/iunsuccessful/generator/path"
+	"github.com/iunsuccessful/generator/rules"
+	"github.com/iunsuccessful/generator/template/funcs"
+	"log"
 	"os"
+	"path/filepath"
+	"text/template"
 )
 
 /*
@@ -19,7 +19,7 @@ import (
  * 2. 填充文件内容
  * 3. 写入 target 对应目录
  */
-func Render(argument *config.Argument)  {
+func Render(argument *config.Argument) {
 
 	// 加载表格信息
 	tableInfo := ddl.GetTableInfo(argument.TableName)
@@ -67,5 +67,5 @@ func templateDir(dir string, data interface{}) string {
 }
 
 func ignoreFiles(filePath string) bool {
-	return filepath.Base(filePath) == "README.md";
+	return filepath.Base(filePath) == "README.md"
 }

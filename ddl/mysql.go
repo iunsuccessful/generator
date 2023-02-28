@@ -1,12 +1,12 @@
 package ddl
 
 import (
+	"container/list"
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/iunsuccessful/generator/config"
 	"log"
-	_ "github.com/go-sql-driver/mysql"
-	"container/list"
 )
 
 func open() *sql.DB {
@@ -30,14 +30,14 @@ func selectTableInfo(tableInfo *TableInfo, selectSql string)  {
 	rows, err := db.Query(selectSql)
 
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 	}
 
 	//for rows.Next() {
 	if rows.Next() {
 		err = rows.Scan(&tableInfo.TableName, &tableInfo.TableComment)
 		if err != nil {
-			log.Println(err)
+			log.Fatalln(err)
 		}
 	}
 

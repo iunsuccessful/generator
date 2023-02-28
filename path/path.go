@@ -1,19 +1,18 @@
 package path
 
-
 import (
-	"os"
-	"path/filepath"
 	"log"
-	"path"
-	"strings"
+	"os"
 	"os/exec"
+	"path"
+	"path/filepath"
+	"strings"
 )
 
 /**
  * 获取文件执行路径
  */
-func getExecPath() string {
+func GetExecPath() string {
 	pwd, err := os.Getwd()
 	if err != nil {
 		log.Println(err)
@@ -21,27 +20,27 @@ func getExecPath() string {
 	return pwd
 }
 
-/**
- * 应用程序路径
- */
-func GetBasePath() string {
-	// return getExecPath()
-    return GetBinFilePath()
-}
-
-func GetTemplatePath() string  {
-	return filepath.Join(GetBasePath(), "template")
-}
-
-func GetTargetPath() string  {
-	return filepath.Join(GetBasePath(), "target")
-}
-
 func GetBinFilePath() string {
 	//return "E:\\Anonymous\\Documents\\golang\\Generator\\src\\github.com\\iunsuccessful\\generator\\test";
 	file, _ := exec.LookPath(os.Args[0])
 	path, _ := filepath.Abs(file)
 	return filepath.Dir(path)
+}
+
+/**
+ * 应用程序路径
+ */
+func GetBasePath() string {
+	return GetExecPath()
+	//return GetBinFilePath()
+}
+
+func GetTemplatePath() string {
+	return filepath.Join(GetBasePath(), "template")
+}
+
+func GetTargetPath() string {
+	return filepath.Join(GetBasePath(), "target")
 }
 
 /**
@@ -60,9 +59,9 @@ func getFiles(dirPath string) []string {
 		if info != nil && !info.IsDir() {
 			filePaths = append(filePaths, path)
 		}
-		return nil;
+		return nil
 	})
-	return filePaths;
+	return filePaths
 }
 
 func Create(targetPath string) *os.File {
