@@ -50,7 +50,7 @@
             GMT_MODIFIED = now(),
             ROW_VERSION = ROW_VERSION + 1,
             {{- range .Columns -}}
-            {{- if  or (eq .ColumnKey "PRI") (eq .LowerCamelName "rowVersion") | not -}}
+            {{ if  or (eq .ColumnKey "PRI") (eq .LowerCamelName "rowVersion") (eq .LowerCamelName "gmtModified") (eq .LowerCamelName "gmtCreate") | not }}
             <if test="{{.LowerCamelName}} != null" >
                {{.ColumnName}} = #{ {{- .LowerCamelName -}} },
             </if>
